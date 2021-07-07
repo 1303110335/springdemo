@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+    <mapper namespace="com.example.springdemo.dal.fsriskmanagement.mapper.ManagerDOMapper">
+
+<resultMap id="BaseResultMap" type="com.example.springdemo.dal.fsriskmanagement.dataobject.ManagerDO">
+            <id column="ID" property="id" jdbcType="INTEGER"
+                javaType="Integer"/>
+
+            <result column="TOKEN" property="token" jdbcType="VARCHAR"
+                    javaType="String"/>
+
+            <result column="PASSWORD" property="password" jdbcType="VARCHAR"
+                    javaType="String"/>
+
+            <result column="USERNAME" property="username" jdbcType="VARCHAR"
+                    javaType="String"/>
+
+            <result column="MANAGER_ID" property="managerId" jdbcType="VARCHAR"
+                    javaType="String"/>
+
+            <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP"
+                    javaType="java.util.Date"/>
+
+            <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"
+                    javaType="java.util.Date"/>
+</resultMap>
+
+
+    <sql id="Base_Column_List">
+    `ID`,`TOKEN`,`PASSWORD`,`USERNAME`,`MANAGER_ID`,`CREATE_TIME`,`UPDATE_TIME`
+    </sql>
+
+
+            <!--insert:FK_MANAGER-->
+            <insert id="insert" >
+                        INSERT INTO FK_MANAGER
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">`ID`,</if>
+        <if test="token != null">`TOKEN`,</if>
+        <if test="password != null">`PASSWORD`,</if>
+        <if test="username != null">`USERNAME`,</if>
+        <if test="managerId != null">`MANAGER_ID`,</if>
+        <if test="createTime != null">`CREATE_TIME`,</if>
+        <if test="updateTime != null">`UPDATE_TIME`,</if>
+            </trim>
+            VALUES
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">#{id,jdbcType=INTEGER},</if>
+        <if test="token != null">#{token,jdbcType=VARCHAR},</if>
+        <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+        <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+        <if test="managerId != null">#{managerId,jdbcType=VARCHAR},</if>
+        <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+        <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            </trim>
+            </insert>
+
+            <!--根据用户名称查询管理员信息-->
+            <select id="getByUsername" resultMap="BaseResultMap">
+                        SELECT
+            <include refid="Base_Column_List" />
+            FROM
+            FK_MANAGER
+            WHERE
+            username = #{username, jdbcType=VARCHAR}
+            LIMIT 1
+            </select>
+
+            <!--根据id更新管理员TOKEN信息-->
+            <update id="updateById" >
+                        UPDATE /*MS-FK-MANAGER-UPDATEBYID*/ FK_MANAGER
+            SET
+            TOKEN = #{token, jdbcType=VARCHAR}
+            WHERE
+            id = #{id, jdbcType=INTEGER}
+            </update>
+    </mapper>

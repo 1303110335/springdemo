@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- init-method：指定初始化的方法 destroy-method：指定销毁的方法 -->
+    <bean id="student" class="com.example.springdemo.domain.Student" init-method="initStudent"
+          destroy-method="destroyStudent">
+        <property name="name" value="LINJIE"></property>
+    </bean>
+
+    <!-- 配置bean的后置处理器,不需要id，IoC容器自动识别是一个BeanPostProcessor -->
+    <bean class="com.example.springdemo.circle.MyBeanPostProcessor"></bean>
+
+    <bean name="myAdvice" class="com.example.springdemo.aspect.MyAdvice"></bean>
+    <!--<aop:config>-->
+    <!--<aop:aspect ref="myAdvice">-->
+    <!--<aop:before method="log" pointcut="execution(void )"></aop:before>-->
+    <!--</aop:aspect>-->
+    <!--</aop:config>-->
+</beans>

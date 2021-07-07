@@ -1,0 +1,45 @@
+<!DOCTYPE table SYSTEM "../config/table-config-1.0.dtd">
+    <table sqlname="FK_MANAGER" physicalName="FK_MANAGER"
+    remark="风控中心管理员表">
+        <!--    &lt;&gt;   <> -->
+        <operation name="insert" paramtype="object" remark="insert:FK_MANAGER">
+            INSERT INTO FK_MANAGER
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">`ID`,</if>
+        <if test="token != null">`TOKEN`,</if>
+        <if test="password != null">`PASSWORD`,</if>
+        <if test="username != null">`USERNAME`,</if>
+        <if test="managerId != null">`MANAGER_ID`,</if>
+        <if test="createTime != null">`CREATE_TIME`,</if>
+        <if test="updateTime != null">`UPDATE_TIME`,</if>
+            </trim>
+            VALUES
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">#{id,jdbcType=INTEGER},</if>
+        <if test="token != null">#{token,jdbcType=VARCHAR},</if>
+        <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+        <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+        <if test="managerId != null">#{managerId,jdbcType=VARCHAR},</if>
+        <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
+        <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            </trim>
+        </operation>
+
+        <operation name="getByUsername" multiplicity="one" remark="根据用户名称查询管理员信息">
+            SELECT
+            *
+            FROM
+            FK_MANAGER
+            WHERE
+            username = #{username, jdbcType=VARCHAR}
+            LIMIT 1
+        </operation>
+
+        <operation name="updateById" paramtype="object" remark="根据id更新管理员TOKEN信息">
+            UPDATE FK_MANAGER
+            SET
+            TOKEN = #{token, jdbcType=VARCHAR}
+            WHERE
+            id = #{id, jdbcType=INTEGER}
+        </operation>
+    </table>
